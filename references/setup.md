@@ -21,9 +21,9 @@ Read [harnesses](harnesses.md). Inspect existing instruction files first and pre
 Fill the two path markers with actual chosen paths during setup (they are intentionally not personal paths in the package):
 
 ```markdown
-<!-- work-learning-loop:start -->
+<!-- work-to-knowledge:start -->
 For work covered by CONFIG_PATH, follow PACKAGE_PATH/SKILL.md. Read that config before recording and before every write. Scope applies to the journal itself; exclusions, missing/ambiguous config, uncertain scope, and “no record this session” silently skip all recording. Do not ask per session. After meaningful journal updates evaluate new episodes and recover/check durable checkpoints before debriefing. Keep the user's task primary. This instruction does not authorize publication or unrelated reads/writes.
-<!-- work-learning-loop:end -->
+<!-- work-to-knowledge:end -->
 ```
 
 For Cursor's rule file, put this body under `---\nalwaysApply: true\n---` (with real newlines). A broad loading rule still uses the config gate before recording.

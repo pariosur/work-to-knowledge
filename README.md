@@ -1,6 +1,10 @@
-# Work learning loop — reviewable draft
+# Work to Knowledge — reviewable draft
 
-A portable agent skill for keeping decision history and learning from substantive work. Plain Markdown works in any editor; Obsidian is optional. Python 3 is optional for the read-only scope/checkpoint planning helper and required for the included tests. There are no dependencies, scheduler, network client, or automatic installer.
+A portable agent skill for keeping decision history and learning from substantive work. Plain Markdown works in any editor; Obsidian is optional.
+
+![Work to Knowledge framework: agents at work feed a journal and debrief; external resources and debriefs connect to concept notes and an optional study roadmap.](assets/work-to-knowledge-overview.png)
+
+Python 3 is optional for the read-only scope/checkpoint planning helper and required for the included tests. There are no dependencies, scheduler, network client, or automatic installer.
 
 ## Install and set up later
 
@@ -10,7 +14,7 @@ This folder is a draft, not installed or activated. Review `SKILL.md`, then ask 
 
 [Setup](references/setup.md) explains configuration, permission boundaries, harness destinations, and rollback. The setup agent can create the selected folders and templates, save a validated config, and insert a small marked instruction block in the selected harness. Do not install the sample config unchanged; it is deliberately disabled. No global install is implied. Select global, one project, or selected workspaces/topics with exclusions. Once configured, recording does not ask at each session.
 
-Use “no record this session” for a temporary override, “exclude this project from work-learning-loop,” “change learning objective,” or “disable work-learning-loop” for persistent changes. Ask for “show work-learning-loop config” to inspect the exact persisted settings. The config is re-read before writes; changed harness instructions may require a new session.
+Use “no record this session” for a temporary override, “exclude this project from work-to-knowledge,” “change learning objective,” or “disable work-to-knowledge” for persistent changes. Ask for “show work-to-knowledge config” to inspect the exact persisted settings. The config is re-read before writes; changed harness instructions may require a new session.
 
 ## What runs, and when
 

@@ -1,9 +1,9 @@
 ---
-name: work-learning-loop
+name: work-to-knowledge
 description: Maintain an explicitly configured work journal and turn meaningful work episodes into evidence-backed debriefs, linked concepts, and optional learning paths. Use for setup, scope changes, or ongoing work covered by an existing configuration.
 ---
 
-# Work learning loop
+# Work to Knowledge
 
 Keep working memory for agents and learning notes for people. Support coding, research, marketing, operations, and other work without assuming tickets or pull requests.
 
