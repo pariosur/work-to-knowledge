@@ -1,39 +1,76 @@
-# Work to Knowledge — reviewable draft
+# Work to Knowledge Skill
 
-A portable agent skill for keeping decision history and learning from substantive work. Plain Markdown works in any editor; Obsidian is optional.
+Learn from the work you do with agents, including the code they write.
+
+An agent can finish a task while the reasoning behind it disappears into a chat. Work to Knowledge keeps the useful parts: decisions made along the way, what the evidence showed, and ideas worth understanding next. You get a record you can resume and learning notes you can return to.
 
 ![Work to Knowledge framework: agents at work feed a journal and debrief; external resources and debriefs connect to concept notes and an optional study roadmap.](assets/work-to-knowledge-overview.png)
 
-Python 3 is optional for the read-only scope/checkpoint planning helper and required for the included tests. There are no dependencies, scheduler, network client, or automatic installer.
+## What you get
 
-## Compatibility
+- **A work journal** that records decisions, surprises, obstacles, and the next step while the agent works.
+- **Short debriefs** that explain what changed, why a choice made sense, and where the lesson applies.
+- **Connected concept notes** that bring together your work and relevant passages from sources you approve, such as books, articles, podcasts, or research notes.
+- **An optional learning roadmap** shaped around your objective and prerequisites. Encountering a concept stays separate from demonstrating mastery.
 
-Setup adapters are documented for **Codex, Claude Code, Pi, and Cursor**. They have not been live-tested with this package. Codex, Claude Code, and Pi use their documented skill/instruction loading; the Cursor adapter uses persistent rules that point to the package. See the [harness guide](references/harnesses.md) before setup.
+Everything is ordinary Markdown. Use your usual editor, or an Obsidian vault if you prefer. Coding, research, marketing, and operations can all use the same loop.
 
-This package does not provide or claim a generic ChatGPT local `SKILL.md` installation. Other environments need their own verified file access and instruction-loading integration. It is an agent-guided workflow, not a background service.
+## A small example
 
-## Install and set up later
+Your agent fixes a retry bug. The journal records why it chose a stable request key. A local test shows that repeating the same request creates one record. The debrief explains idempotency, links an existing concept note, and suggests a small exercise to check your understanding.
 
-This folder is a draft, not installed or activated. Review `SKILL.md`, then ask your agent:
+That test does not establish production reliability, and reading the note does not mean you have mastered the idea. The lesson stays tied to what actually happened. See the [coding and marketing examples](references/examples.md).
 
-> Read this package's SKILL.md and run its one-time guided setup. Show me the exact scope, storage, approved source folders, roadmap mode, and permanent instruction changes. Use my choices to configure it without changing unrelated setup.
+## Get started
 
-[Setup](references/setup.md) explains configuration, permission boundaries, harness destinations, and rollback. The setup agent can create the selected folders and templates, save a validated config, and insert a small marked instruction block in the selected harness. Do not install the sample config unchanged; it is deliberately disabled. No global install is implied. Select global, one project, or selected workspaces/topics with exclusions. Once configured, recording does not ask at each session.
+Clone the package into a local folder:
 
-Use “no record this session” for a temporary override, “exclude this project from work-to-knowledge,” “change learning objective,” or “disable work-to-knowledge” for persistent changes. Ask for “show work-to-knowledge config” to inspect the exact persisted settings. The config is re-read before writes; changed harness instructions may require a new session.
+```sh
+git clone https://github.com/pariosur/work-to-knowledge.git
+```
 
-## What runs, and when
+Then ask your agent, using the actual path to your clone:
 
-The agent evaluates the loop while handling work, after each meaningful journal update, at an observed handoff/milestone, and when explicitly asked to catch up on an approved journal. A PR can be a milestone but is optional. The skill cannot observe an ended/crashed session, watch folders, run on a timer, or guarantee the model follows instructions. No hooks or daemon are included. Durable checkpoints recover partially finished debriefs on the next authorized invocation; they do not schedule it. Harness loading and semantic decisions still need real-world validation.
+> Read work-to-knowledge/SKILL.md and run its one-time setup. Help me choose where notes live, which work to include or exclude, which source folders may be used, and whether I want a learning roadmap. Configure the appropriate skill and permanent instruction for my harness while preserving unrelated settings.
 
-## Review and validation
+Setup saves those choices. Choose global scope, one project, or selected workspaces and topics. Scope applies before the journal is written. Say “no record this session” to pause temporarily, or “change work-to-knowledge scope” for a persistent change. The skill does not add recurring recording-permission questions; harness security prompts still apply.
 
-- [Workflow and recovery](references/workflow.md)
-- [Synthetic coding and marketing examples](references/examples.md)
-- [Official harness references and limits](references/harnesses.md)
-- [Validation results](VALIDATION.md)
-- Run `python3 -m unittest discover -s tests -v` from this folder.
+### Harness setup
+
+These are **documented adapters, not live-tested integrations**. The setup agent should verify loading in your installed version. The [harness guide](references/harnesses.md) includes official sources, personal/global locations, and verification steps.
+
+| Harness | Project setup |
+|---|---|
+| Codex | Place the package in `.agents/skills/work-to-knowledge/` and add its scoped pointer to the active `AGENTS.md`. |
+| Claude Code | Place it in `.claude/skills/work-to-knowledge/` and add the pointer to `CLAUDE.md`. |
+| Pi | Place it in `.pi/skills/work-to-knowledge/` and add the pointer to its active `AGENTS.md`. |
+| Gemini CLI | Place it in `.gemini/skills/work-to-knowledge/` and add the pointer to `GEMINI.md`. Skill activation can require Gemini's consent prompt. |
+| Cursor | Keep the package in a stable local folder and point to it from a project `.cursor/rules/work-to-knowledge.mdc` rule. This is a rules-based adapter. |
+
+You can also use Gemini CLI's documented installer, then run the one-time setup:
+
+```sh
+gemini skills install https://github.com/pariosur/work-to-knowledge.git --scope workspace
+```
+
+This repository does not provide a generic ChatGPT local `SKILL.md` installation. Other environments need verified file access and instruction loading. Copying the package alone does not configure recording. See [setup and config changes](references/setup.md).
+
+## How it behaves
+
+After a meaningful journal update, the agent considers whether there is a new lesson supported by evidence. Entry counts and task closure do not force a debrief. Durable checkpoints help it resume unfinished processing and avoid repeating earlier notes.
+
+It runs as part of an active agent workflow. It is not a daemon and cannot guarantee a callback after a session ends or crashes. External sources are limited to folders you approve. Read-only sources stay untouched; companion notes provide the return links.
+
+## Validation and limits
+
+The Python helper passed 15 automated tests. Independent synthetic scenarios passed 26 assertions. Live harness loading, concurrent recovery, and real-world learning outcomes remain untested. Python 3 is needed for the optional helper and tests; no third-party dependencies are required.
+
+```sh
+python3 -m unittest discover -s tests -v
+```
+
+Read the [full validation results](VALIDATION.md) and [workflow details](references/workflow.md).
 
 ## Provenance and rights
 
-The journal idea came from a colleague; no identity is asserted. These generic instructions were newly written from the described workflow and reviewed local behavior. No original employer skill text, client artifacts, private work examples, or personal paths are bundled. No license file or ownership grant is included. Public availability is not a license grant; licensing remains undecided. The initial draft was prepared locally. Hosting this draft does not install or activate it; runtime notes and personal configuration stay outside this package.
+The journal idea came from a colleague. The package uses newly written generic instructions and synthetic examples, with no original employer skill text, client artifacts, or private work notes bundled. No license file or ownership grant is included. Public availability is not a license grant; licensing remains undecided. Your notes and personal configuration belong outside this package.

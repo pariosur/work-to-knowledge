@@ -1,6 +1,6 @@
 # Validation results
 
-Reviewable draft tested locally on 2026-10-09/10 UTC. No active harness configuration, original skills, or real learning notes were changed.
+Package tested locally on 2026-10-09/10 UTC. No active harness configuration, original skills, or real learning notes were changed.
 
 ## Executed checks
 
@@ -37,4 +37,4 @@ The independent evaluator found that a nonexistent path beneath an included root
 
 ## Remaining limits
 
-No live Codex, Claude Code, Pi, or Cursor installation/loading test was performed. The harness guide is supported by linked official documentation, not certification of the user's installed versions. No concurrency stress test, network filesystem transaction test, or daemon test was performed. The skill describes agent-managed locks, atomic replacements and reconciliation; the helper only evaluates scope and plans IDs/reservations. Semantic source matching, episode selection, evidence assessment and mastery assessment remain agent/user responsibilities. Future setup must verify real paths, source permissions, and instruction loading. The package remains unlicensed and is not installed into an active harness. Publication status is separate from these local validation results.
+No live Codex, Claude Code, Pi, Gemini CLI, or Cursor installation/loading test was performed. The harness guide is supported by linked official documentation, not certification of the user's installed versions. No concurrency stress test, network filesystem transaction test, or daemon test was performed. The skill describes agent-managed locks, atomic replacements and reconciliation; the helper only evaluates scope and plans IDs/reservations. Semantic source matching, episode selection, evidence assessment and mastery assessment remain agent/user responsibilities. Future setup must verify real paths, source permissions, and instruction loading. The package remains unlicensed and is not installed into an active harness. Publication status is separate from these local validation results.

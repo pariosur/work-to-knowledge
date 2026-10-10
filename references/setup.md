@@ -1,6 +1,6 @@
 # One-time setup and changes
 
-Only start setup when requested. Persist choices so there is no recurring permission interview. Existing choices in the conversation count; ask only what remains unknown, in a compact group:
+Only start setup when requested. Persist choices so the skill adds no recurring recording-permission interview. Native harness activation and security prompts, including Gemini CLI skill consent, remain in force. Existing choices in the conversation count; ask only what remains unknown, in a compact group:
 
 1. Which scope: global, one project, or selected workspaces and/or topics? Which exclusions? Topics are stable, user-chosen labels with a short definition in the permanent instruction if needed.
 2. Where should ordinary Markdown notes and config live? Keep runtime notes outside the distributable skill and outside public repositories by default. Is an Obsidian vault desired? It changes only the chosen folder.

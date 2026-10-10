@@ -16,7 +16,7 @@ Keep working memory for agents and learning notes for people. Support coding, re
 
 ## Gate before recording
 
-Reload config before every write. A temporary “no record this session” instruction overrides it immediately. Missing, invalid, ambiguous, disabled, excluded, or inaccessible scope means silently skip this entire workflow: no journal, checkpoint, concept, source backlink, roadmap, or skipped-session log. Continue the user's actual task. Never repeatedly ask permission to record.
+Reload config before every write. A temporary “no record this session” instruction overrides it immediately. Missing, invalid, ambiguous, disabled, excluded, or inaccessible scope means silently skip this entire workflow: no journal, checkpoint, concept, source backlink, roadmap, or skipped-session log. Continue the user's actual task. Never repeatedly ask permission to record. Native harness activation and tool-security prompts still apply; do not bypass them.
 
 Exclusions win over inclusion. Global means all clearly identified work except exclusions, not permission to read all personal data. Project selects one explicit root; selected selects approved roots and/or explicit topic IDs. Match canonical paths, including symlinks, not string prefixes. Topic labels must be grounded in the user's task or established context; do not guess a topic to fit scope. If the work touches an excluded topic or root, skip it. For mixed or uncertain scope, skip until clearly separable in a later task. Ordinary tool and filesystem permissions still apply.
 
