@@ -73,4 +73,4 @@ Read the [full validation results](VALIDATION.md) and [workflow details](referen
 
 ## Provenance and rights
 
-The journal idea came from a colleague. The package uses newly written generic instructions and synthetic examples, with no original employer skill text, client artifacts, or private work notes bundled. No license file or ownership grant is included. Public availability is not a license grant; licensing remains undecided. Your notes and personal configuration belong outside this package.
+The journal idea came from a colleague. The package uses newly written generic instructions and synthetic examples, with no original employer skill text, client artifacts, or private work notes bundled. Licensed under the [MIT License](LICENSE). Copyright (c) 2026 Pablo Ríos. Your notes and personal configuration belong outside this package.
