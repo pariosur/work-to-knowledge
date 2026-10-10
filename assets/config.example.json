@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "enabled": false,
+  "store": "./learning-notes",
+  "scope": {
+    "mode": "selected",
+    "roots": [],
+    "topics": [],
+    "exclude_roots": [],
+    "exclude_topics": []
+  },
+  "sources": [],
+  "learning": {
+    "objective": "Explain and apply the recurring ideas in my selected work",
+    "prerequisites": [],
+    "roadmap_mode": "none",
+    "existing_path": null,
+    "allow_existing_updates": false,
+    "mastery_evidence": "A user-reviewed independent exercise or explanation with recorded evidence"
+  }
+}
