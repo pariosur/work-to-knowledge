@@ -6,6 +6,12 @@ A portable agent skill for keeping decision history and learning from substantiv
 
 Python 3 is optional for the read-only scope/checkpoint planning helper and required for the included tests. There are no dependencies, scheduler, network client, or automatic installer.
 
+## Compatibility
+
+Setup adapters are documented for **Codex, Claude Code, Pi, and Cursor**. They have not been live-tested with this package. Codex, Claude Code, and Pi use their documented skill/instruction loading; the Cursor adapter uses persistent rules that point to the package. See the [harness guide](references/harnesses.md) before setup.
+
+This package does not provide or claim a generic ChatGPT local `SKILL.md` installation. Other environments need their own verified file access and instruction-loading integration. It is an agent-guided workflow, not a background service.
+
 ## Install and set up later
 
 This folder is a draft, not installed or activated. Review `SKILL.md`, then ask your agent:
@@ -30,4 +36,4 @@ The agent evaluates the loop while handling work, after each meaningful journal 
 
 ## Provenance and rights
 
-The journal idea came from a colleague; no identity is asserted. These generic instructions were newly written from the described workflow and reviewed local behavior. No original employer skill text, client artifacts, private work examples, or personal paths are bundled. No license or ownership grant is asserted. A rights/licensing decision is needed before distribution; this draft makes none. The initial draft was prepared locally. Hosting this draft does not install or activate it; runtime notes and personal configuration stay outside this package.
+The journal idea came from a colleague; no identity is asserted. These generic instructions were newly written from the described workflow and reviewed local behavior. No original employer skill text, client artifacts, private work examples, or personal paths are bundled. No license file or ownership grant is included. Public availability is not a license grant; licensing remains undecided. The initial draft was prepared locally. Hosting this draft does not install or activate it; runtime notes and personal configuration stay outside this package.
