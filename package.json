@@ -1,0 +1,24 @@
+{
+  "name": "work-to-knowledge",
+  "version": "0.1.0",
+  "description": "Turn scoped agent work into a journal, evidence-backed debriefs, and connected learning notes.",
+  "author": {
+    "name": "Pablo Ríos"
+  },
+  "homepage": "https://github.com/pariosur/work-to-knowledge",
+  "repository": "https://github.com/pariosur/work-to-knowledge",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "pi-package",
+    "learning",
+    "knowledge",
+    "journal",
+    "debrief"
+  ],
+  "pi": {
+    "skills": [
+      "./skills/work-to-knowledge"
+    ]
+  }
+}

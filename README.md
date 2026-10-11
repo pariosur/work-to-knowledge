@@ -21,9 +21,9 @@ Your agent fixes a retry bug. The journal records why it chose a stable request 
 
 That test does not establish production reliability, and reading the note does not mean you have mastered the idea. The lesson stays tied to what actually happened. See the [coding and marketing examples](references/examples.md).
 
-## Install as a plugin
+## Install as a plugin or Pi package
 
-Choose the commands for your harness. These install the plugin from this repository's marketplace; they do not start recording or change your journal configuration.
+Choose the commands for your harness. Codex and Claude Code use this repository's marketplace; Pi installs it as a git package. Installation does not start recording or change your journal configuration.
 
 ### Codex
 
@@ -46,6 +46,21 @@ claude plugin list
 ```
 
 Start a new session and run **`/work-to-knowledge:setup`**. These commands and manifest layouts follow the official Claude Code documentation; Claude runtime loading has **not** been tested in this environment.
+
+### Pi
+
+```sh
+pi install git:github.com/pariosur/work-to-knowledge
+pi list
+```
+
+Start a new session (or run `/reload`), then run:
+
+```text
+/skill:work-to-knowledge Run the one-time setup for Pi.
+```
+
+The package exposes only `work-to-knowledge`; the generic native-plugin `setup` skill is intentionally excluded to avoid a `/skill:setup` collision. Setup resolves the installed skill through Pi's inventory and adds one scoped instruction to the active `AGENTS.md`, without pinning a cache path. Use `pi install --local git:github.com/pariosur/work-to-knowledge` only when you want a project-local package declaration; honor any project trust prompts.
 
 ### One guided setup
 
@@ -97,7 +112,7 @@ It runs as part of an active agent workflow. It is not a daemon and cannot guara
 
 ## Validation and limits
 
-The Python helper and native packaging have automated regression tests. Earlier independent synthetic scenarios passed 26 assertions. Codex native local installation and skill discovery passed in an isolated environment; Claude loading, onboarding UI, concurrent recovery, and real-world learning outcomes remain untested. Python 3 is needed for the optional helper and tests; no third-party dependencies are required.
+The Python helper and native packaging have automated regression tests. Earlier independent synthetic scenarios passed 26 assertions. Codex native local installation and skill discovery passed in an isolated environment; Pi CLI **1.1.0** local package installation and fresh skill discovery also passed. Claude loading, onboarding UI, concurrent recovery, and real-world learning outcomes remain untested. Python 3 is needed for the optional helper and tests; the skill itself has no third-party dependencies. Optional native smoke tests require the corresponding harness CLI.
 
 ```sh
 python3 scripts/sync_plugin.py --check
@@ -108,9 +123,9 @@ Read the [full validation results](VALIDATION.md) and [workflow details](referen
 
 ## Development
 
-Edit the portable root `SKILL.md`, `references/`, `assets/` templates, and `scripts/loop_state.py`, then run `python3 scripts/sync_plugin.py`. The committed `skills/work-to-knowledge/` bundle is generated from those files so both hosts load the same workflow and all references survive plugin caching. `skills/setup/` is the explicit setup entry point, not another recorder. Tests reject drift, missing resources, duplicate skill names, unsafe paths, and mismatched versions.
+Edit the portable root `SKILL.md`, `references/`, `assets/` templates, and `scripts/loop_state.py`, then run `python3 scripts/sync_plugin.py`. The committed `skills/work-to-knowledge/` bundle is generated from those files so all three hosts load the same workflow and all references survive plugin caching. `skills/setup/` is the explicit setup entry point, not another recorder. Tests reject drift, missing resources, duplicate skill names, unsafe paths, and mismatched versions.
 
-The root `plugin.json` follows the portable Agent Plugins format; `.codex-plugin/plugin.json` preserves the supported Codex compatibility format and `.claude-plugin/plugin.json` supplies Claude metadata. `.agents/plugins/marketplace.json` and `.claude-plugin/marketplace.json` both expose the same package. No active user configuration is bundled.
+The root `package.json` explicitly selects the main skill for Pi. It has no dependencies, install scripts, extensions, or hooks and is not published to npm. The root `plugin.json` follows the portable Agent Plugins format; `.codex-plugin/plugin.json` preserves the supported Codex compatibility format and `.claude-plugin/plugin.json` supplies Claude metadata. `.agents/plugins/marketplace.json` and `.claude-plugin/marketplace.json` both expose the same package. No active user configuration is bundled.
 
 ## Provenance and rights
 

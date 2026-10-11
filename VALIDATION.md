@@ -23,6 +23,28 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_codex_plugin.py
 
 The optional smoke test requires a Codex CLI with `plugin add` and app-server support. Its temporary install is removed when it finishes. No test installs into the user's real harness.
 
+## Pi package (2026-10-11 UTC)
+
+- **26 automated tests passed**, including explicit Pi resource selection, matching manifest identity/version/license, no install scripts/dependencies, setup routing, disabled defaults, and generated-bundle parity.
+- **Pi CLI 1.1.0 local package installation and fresh RPC discovery passed** with temporary `HOME`, `PI_CODING_AGENT_DIR`, and working directory, no inherited credentials, telemetry disabled, and no model request. `pi install`, `pi list`, persisted package settings, and a separate process's `get_commands` inventory exposed exactly `skill:work-to-knowledge`. The generic native-plugin `setup` skill was not exposed.
+- The installed skill's setup route, bundled references/helper/license, and disabled example config were checked. Its read-only helper passed disabled, included, excluded, ambiguous and temporary no-record synthetic cases; no note store was created.
+- These checks verify package installation, resource loading and helper behavior. They do **not** test a model conducting interactive setup, obeying the scope instruction, producing notes, or preserving a real user's existing instruction files. No active user configuration or real notes were touched.
+- The Pi manifest adds no hooks, extensions, prompts, dependencies, install scripts, or persistent background recorder. `private: true` guards against accidental npm publication; installation uses Git.
+
+With an official Pi CLI available on `PATH`, reproduce the local check:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_pi_package.py
+```
+
+To separately verify the published repository, use a fresh isolated Git installation:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_pi_package.py --source git:github.com/pariosur/work-to-knowledge
+```
+
+The script deletes its temporary environment on exit. The Git check requires network access and tests the repository's current default branch; use an explicit `@COMMIT` suffix to pin a published revision. Local success alone is not proof of a hosted install.
+
 ## Earlier portable-skill checks
 
 - Skill-creator `quick_validate.py`: passed (frontmatter, name, scaffold checks).
@@ -58,4 +80,4 @@ The independent evaluator found that a nonexistent path beneath an included root
 
 ## Remaining limits
 
-Only the isolated Codex native discovery/loading described above was runtime-tested. Claude Code, Pi, Gemini CLI, and Cursor loading remains untested. The harness guide does not certify the user's installed versions. No concurrency stress test, network filesystem transaction test, or daemon test was performed. The skill describes agent-managed locks, atomic replacements and reconciliation; the helper only evaluates scope and plans IDs/reservations. Semantic source matching, episode selection, evidence assessment and mastery assessment remain agent/user responsibilities. Future setup must verify real paths, source permissions, and instruction loading. The package is licensed under MIT and is not installed into an active harness. Publication status is separate from these local validation results.
+Only the isolated Codex and Pi discovery/loading described above was runtime-tested. Claude Code, Gemini CLI, and Cursor loading remains untested. The harness guide does not certify the user's installed versions. No concurrency stress test, network filesystem transaction test, or daemon test was performed. The skill describes agent-managed locks, atomic replacements and reconciliation; the helper only evaluates scope and plans IDs/reservations. Semantic source matching, episode selection, evidence assessment and mastery assessment remain agent/user responsibilities. Future setup must verify real paths, source permissions, and instruction loading. The package is licensed under MIT and is not installed into an active harness. Publication status is separate from these local validation results.

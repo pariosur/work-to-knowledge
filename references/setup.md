@@ -32,6 +32,20 @@ For work covered by CONFIG_PATH, use the installed work-to-knowledge plugin's wo
 
 Installation, native onboarding UI, and actual recording are separate verification steps. Never claim all three from successful manifest validation. In a fresh harmless session verify the namespaced main skill is loaded, read the approved config, and dry-run synthetic gate cases without writing notes. On uninstall, remove only the marked block if requested; keep notes/config unless deletion is separately authorized.
 
+## Pi package setup and migration
+
+After `pi install git:github.com/pariosur/work-to-knowledge`, explicitly invoke `/skill:work-to-knowledge Run the one-time setup for Pi.` Only the main skill is exposed; do not look for `/skill:setup`. Apply the choices, validation and migration safeguards above. Inspect the loaded skill inventory and active `AGENTS.md` chain; preserve unrelated content and replace an existing marked block rather than adding a second recorder. Installation, package updates and `/reload` do not enable recording by themselves.
+
+Use this block in the chosen active Pi `AGENTS.md`, replacing `CONFIG_PATH` with the approved exact config path:
+
+```markdown
+<!-- work-to-knowledge:start -->
+For work covered by CONFIG_PATH, use the installed work-to-knowledge skill from Pi's loaded skill inventory. Read that exact config before recording and before every write. Scope applies to the journal itself; exclusions, missing/ambiguous config, uncertain scope, an unavailable skill, and “no record this session” silently skip all recording. Do not ask per session or start setup implicitly. After meaningful journal updates evaluate new episodes and recover/check durable checkpoints before debriefing. Keep the user's task primary. Use this single workflow, without a second standalone trigger or lifecycle hook. This instruction does not authorize publication or unrelated reads/writes.
+<!-- work-to-knowledge:end -->
+```
+
+Do not hard-code Pi's git cache directory; resolve the main skill through the current inventory. If it is unavailable or disabled, skip without searching private directories or using a stale standalone copy. In a harmless fresh session or after `/reload`, verify the skill loads and dry-run scope cases without writing notes. Report loading unverified if this cannot be checked. Removing the package does not delete notes or config; remove the marked instruction only when requested.
+
 ## Minimal permanent block for standalone adapters
 
 Fill the two path markers with actual chosen paths during setup (they are intentionally not personal paths in the package):

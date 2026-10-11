@@ -21,7 +21,7 @@ class PluginPackagingTests(unittest.TestCase):
         sync_plugin.sync(check=True)
 
     def test_manifest_identity_and_versions_agree(self):
-        manifests = [read(p) for p in ('plugin.json', '.codex-plugin/plugin.json', '.claude-plugin/plugin.json')]
+        manifests = [read(p) for p in ('plugin.json', '.codex-plugin/plugin.json', '.claude-plugin/plugin.json', 'package.json')]
         for manifest in manifests:
             self.assertEqual(manifest['name'], 'work-to-knowledge')
             self.assertRegex(manifest['version'], r'^\d+\.\d+\.\d+$')
@@ -31,6 +31,25 @@ class PluginPackagingTests(unittest.TestCase):
             self.assertTrue(manifest['description'])
             self.assertNotIn('hooks', manifest)
             self.assertNotIn('mcpServers', manifest)
+
+    def test_pi_exposes_only_main_skill(self):
+        manifest = read('package.json')
+        self.assertEqual(manifest['pi'], {'skills': ['./skills/work-to-knowledge']})
+        self.assertIn('pi-package', manifest['keywords'])
+        self.assertTrue(manifest['private'])
+        for key in ('scripts', 'dependencies', 'devDependencies', 'peerDependencies'):
+            self.assertNotIn(key, manifest)
+        for relative in manifest['pi']['skills']:
+            path = (ROOT / relative).resolve()
+            self.assertTrue(path.is_relative_to(ROOT))
+            self.assertEqual([p.parent.name for p in path.rglob('SKILL.md')], ['work-to-knowledge'])
+
+    def test_pi_setup_is_explicit_and_cache_independent(self):
+        text = (ROOT / 'skills/work-to-knowledge/references/setup.md').read_text()
+        self.assertIn('/skill:work-to-knowledge Run the one-time setup for Pi.', text)
+        self.assertIn("Pi's loaded skill inventory", text)
+        self.assertIn('do not look for `/skill:setup`', text)
+        self.assertIn('Do not ask per session or start setup implicitly.', text)
 
     def test_marketplaces_resolve_same_package(self):
         codex = read('.agents/plugins/marketplace.json')
@@ -97,7 +116,7 @@ class PluginPackagingTests(unittest.TestCase):
         self.assertIn('MIT License', (ROOT / 'LICENSE').read_text())
 
     def test_no_runtime_configuration_bundled(self):
-        for path in ('.codex/config.toml', '.claude/settings.json', 'AGENTS.md', 'CLAUDE.md', '.mcp.json', 'mcp.json', '.app.json'):
+        for path in ('.codex/config.toml', '.claude/settings.json', 'AGENTS.md', 'CLAUDE.md', '.mcp.json', 'mcp.json', '.app.json', '.pi/settings.json', '.pi/agent/settings.json'):
             self.assertFalse((ROOT / path).exists(), path)
         self.assertFalse(any((ROOT / 'skills').rglob('*.pyc')))
 

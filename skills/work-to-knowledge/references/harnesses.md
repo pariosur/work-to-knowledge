@@ -1,6 +1,6 @@
 # Harness adapters and documented limits
 
-Official documentation checked 2026-10-10. These are documented loading mechanisms, not runtime certification of every installed version. Setup must inspect the actual harness/version and active instruction chain. Do not silently replace managed or unrelated instructions. This package does not require hooks.
+Official documentation checked 2026-10-10; Pi package documentation rechecked 2026-10-11. These are documented loading mechanisms, not runtime certification of every installed version. Setup must inspect the actual harness/version and active instruction chain. Do not silently replace managed or unrelated instructions. This package does not require hooks.
 
 | Harness | Skill location after a user chooses installation | Minimal permanent instruction target |
 |---|---|---|
@@ -30,6 +30,16 @@ The repository also provides native manifests, a shared `skills/` bundle, and re
 - Codex setup: select the installed plugin's Setup action when supported, or ask it to run the installed `work-to-knowledge:setup` skill. The manifest declares onboarding; the UI action itself is not runtime-tested.
 
 [OpenAI packaging and marketplace documentation](https://developers.openai.com/plugins/build/plugins), [Claude Code plugin reference](https://code.claude.com/docs/en/plugins-reference), and [Claude marketplace guide](https://code.claude.com/docs/en/plugin-marketplaces) describe the formats and installation routes. The native package contains no hooks, MCP servers, remote services, credentials, or scheduled background recorder. Publishing this Git repository is not approval/listing in either vendor's public plugin directory.
+
+## Pi package
+
+Prefer `pi install git:github.com/pariosur/work-to-knowledge`, followed by `pi list`, a fresh session or `/reload`, and `/skill:work-to-knowledge Run the one-time setup for Pi.` Use `--local` for a project-local declaration, respecting project trust. Do not also copy this package under `.pi/skills` or `.agents/skills`.
+
+The root `package.json` selects only `./skills/work-to-knowledge`. Pi does not namespace skills like Codex/Claude plugins, so the generic `skills/setup` entry point is not exposed. The main skill routes explicit setup requests to its bundled setup reference. No extension, lifecycle hook, prompt template, or automatic recording trigger is installed. Installation alone grants no scope or source permission.
+
+Use the Pi-specific permanent block in [setup](setup.md), resolved through the loaded skill inventory rather than a versioned cache path. Check `/skill:work-to-knowledge` is available after installation and that `/skill:setup` was not added by this package. Dry-run included, excluded, ambiguous and no-record contexts without writing notes. Package loading and model compliance are separate checks; see the repository validation report.
+
+[Official Pi package documentation](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/packages.md) covers git/local installation, manifest resource selection, package settings and resource discovery. This git package is not an npm publication or package-gallery listing.
 
 ## Gemini CLI
 
