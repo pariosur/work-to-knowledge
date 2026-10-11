@@ -24,15 +24,20 @@ def check(source):
         home, agent, cwd = (temp / name for name in ('home', 'agent', 'work'))
         for path in (home, agent, cwd):
             path.mkdir()
-        # Do not inherit authentication, custom Pi settings, or the user's HOME.
-        env = {key: os.environ[key] for key in ('PATH', 'SystemRoot', 'COMSPEC', 'PATHEXT') if key in os.environ}
+        # Keep platform/network routing only, not provider keys, Pi settings, or the user's HOME.
+        env = {key: os.environ[key] for key in ('PATH', 'SystemRoot', 'COMSPEC', 'PATHEXT',
+                                                    'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY',
+                                                    'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy') if key in os.environ}
         env.update(HOME=str(home), USERPROFILE=str(home), PI_CODING_AGENT_DIR=str(agent),
                    PI_CODING_AGENT_SESSION_DIR=str(temp / 'sessions'), PI_OFFLINE='1',
                    PI_SKIP_VERSION_CHECK='1', PI_TELEMETRY='0',
                    npm_config_cache=str(temp / 'npm-cache'), GIT_TERMINAL_PROMPT='0')
         def run(*args):
-            return subprocess.run([pi, *args], env=env, cwd=cwd, check=True,
-                                  text=True, capture_output=True, timeout=180).stdout
+            result = subprocess.run([pi, *args], env=env, cwd=cwd,
+                                    text=True, capture_output=True, timeout=180)
+            if result.returncode:
+                raise RuntimeError(f'Pi {args[0]} failed: {result.stdout}\n{result.stderr}')
+            return result.stdout
         print('Pi ' + run('--version').strip())
         run('install', source)
         assert source in run('list')

@@ -112,7 +112,7 @@ It runs as part of an active agent workflow. It is not a daemon and cannot guara
 
 ## Validation and limits
 
-The Python helper and native packaging have automated regression tests. Earlier independent synthetic scenarios passed 26 assertions. Codex native local installation and skill discovery passed in an isolated environment; Pi CLI **1.1.0** local package installation and fresh skill discovery also passed. Claude loading, onboarding UI, concurrent recovery, and real-world learning outcomes remain untested. Python 3 is needed for the optional helper and tests; the skill itself has no third-party dependencies. Optional native smoke tests require the corresponding harness CLI.
+The Python helper and native packaging have automated regression tests. Earlier independent synthetic scenarios passed 26 assertions. Codex native local installation and skill discovery passed in an isolated environment; Pi CLI **1.1.0** local and hosted Git installation and fresh skill discovery also passed. Claude loading, onboarding UI, concurrent recovery, and real-world learning outcomes remain untested. Python 3 is needed for the optional helper and tests; the skill itself has no third-party dependencies. Optional native smoke tests require the corresponding harness CLI.
 
 ```sh
 python3 scripts/sync_plugin.py --check
