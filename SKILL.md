@@ -7,6 +7,8 @@ description: Maintain an explicitly configured work journal and turn meaningful 
 
 Keep working memory for agents and learning notes for people. Support coding, research, marketing, operations, and other work without assuming tickets or pull requests.
 
+Resolve references and helper paths relative to this loaded `SKILL.md` directory, not the task working directory. Native plugin hosts load the bundled copy from their cache; do not use an old standalone copy alongside it.
+
 ## Route
 
 - For first setup or persistent changes, read [setup](references/setup.md). Setup is explicit; missing configuration never starts an onboarding interview during unrelated work.

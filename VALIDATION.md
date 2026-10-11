@@ -2,7 +2,28 @@
 
 Package tested locally on 2026-10-09/10 UTC. No active harness configuration, original skills, or real learning notes were changed.
 
-## Executed checks
+## Native plugin packaging (2026-10-10 UTC)
+
+- **24 automated tests passed**: the original 15 helper tests plus 9 native packaging checks. Checks cover generated-source parity, manifest/version alignment, both marketplace roots, exactly one main workflow and explicit setup, onboarding paths, packaged links, disabled defaults, preserved assets/license, and absence of bundled runtime config.
+- The root `plugin.json` passed `jsonschema.validate` against the official [Agent Plugins 1.0.0 manifest schema](https://agent-plugins.org/schemas/1.0.0/plugin.schema.json), fetched on the test date. That schema does not validate host-specific extension semantics.
+- **Codex CLI 0.159.2 native local install/loading passed** with fresh temporary `HOME` and `CODEX_HOME`, outside the source checkout: marketplace registration, available-plugin discovery, `plugin add`, installed/enabled state, and app-server `skills/list` in a fresh process. It discovered exactly `work-to-knowledge:setup` and `work-to-knowledge:work-to-knowledge` from the installed cache with no skill-loading errors.
+- The smoke test makes no model call and writes no journal. It tests discovery/loading, not agent adherence, native onboarding UI, or an end-to-end learning episode. It never reads or changes active user configuration.
+- **Claude Code: documentation and static package checks only.** The manifest, default skills directory, namespacing and marketplace install route follow current official documentation. No Claude executable installation, `claude plugin validate`, authenticated session, or runtime loading test was completed in this environment.
+- GitHub remote installation is a separate check from the local native smoke test; local success alone is not proof of a hosted install.
+- MIT license, original image, helper implementation and portable source layout were preserved. There are no hooks, MCP services, background jobs, credentials, or personal runtime data in the package.
+
+Reproduce offline and native Codex checks:
+
+```sh
+python3 scripts/sync_plugin.py --check
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+python3 scripts/loop_state.py validate assets/config.example.json
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_codex_plugin.py
+```
+
+The optional smoke test requires a Codex CLI with `plugin add` and app-server support. Its temporary install is removed when it finishes. No test installs into the user's real harness.
+
+## Earlier portable-skill checks
 
 - Skill-creator `quick_validate.py`: passed (frontmatter, name, scaffold checks).
 - Disabled example config: passed `loop_state.py validate`.
@@ -37,4 +58,4 @@ The independent evaluator found that a nonexistent path beneath an included root
 
 ## Remaining limits
 
-No live Codex, Claude Code, Pi, Gemini CLI, or Cursor installation/loading test was performed. The harness guide is supported by linked official documentation, not certification of the user's installed versions. No concurrency stress test, network filesystem transaction test, or daemon test was performed. The skill describes agent-managed locks, atomic replacements and reconciliation; the helper only evaluates scope and plans IDs/reservations. Semantic source matching, episode selection, evidence assessment and mastery assessment remain agent/user responsibilities. Future setup must verify real paths, source permissions, and instruction loading. The package is licensed under MIT and is not installed into an active harness. Publication status is separate from these local validation results.
+Only the isolated Codex native discovery/loading described above was runtime-tested. Claude Code, Pi, Gemini CLI, and Cursor loading remains untested. The harness guide does not certify the user's installed versions. No concurrency stress test, network filesystem transaction test, or daemon test was performed. The skill describes agent-managed locks, atomic replacements and reconciliation; the helper only evaluates scope and plans IDs/reservations. Semantic source matching, episode selection, evidence assessment and mastery assessment remain agent/user responsibilities. Future setup must verify real paths, source permissions, and instruction loading. The package is licensed under MIT and is not installed into an active harness. Publication status is separate from these local validation results.

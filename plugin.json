@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "work-to-knowledge",
+  "version": "0.1.0",
+  "description": "Turn scoped agent work into a journal, evidence-backed debriefs, and connected learning notes.",
+  "author": {
+    "name": "Pablo Ríos"
+  },
+  "homepage": "https://github.com/pariosur/work-to-knowledge",
+  "repository": "https://github.com/pariosur/work-to-knowledge",
+  "license": "MIT",
+  "keywords": [
+    "learning",
+    "knowledge",
+    "journal",
+    "debrief"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Work to Knowledge",
+        "shortDescription": "Learn from the work you do with agents",
+        "longDescription": "Keep a scoped work journal and turn meaningful episodes into evidence-backed debriefs, connected concepts, and optional learning paths. Run setup to choose your note store and scope before any recording.",
+        "developerName": "Pablo Ríos",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://github.com/pariosur/work-to-knowledge",
+        "defaultPrompt": [
+          "Set up Work to Knowledge for my selected work."
+        ]
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md"
+    }
+  }
+}

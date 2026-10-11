@@ -1,0 +1,13 @@
+{
+  "name": "work-to-knowledge",
+  "owner": {
+    "name": "Pablo Ríos"
+  },
+  "plugins": [
+    {
+      "name": "work-to-knowledge",
+      "source": "./",
+      "description": "Turn scoped agent work into a journal, evidence-backed debriefs, and connected learning notes."
+    }
+  ]
+}

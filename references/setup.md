@@ -16,7 +16,23 @@ Create `journals/`, `debriefs/`, `concepts/`, `sources/`, and `.state/` under th
 
 Read [harnesses](harnesses.md). Inspect existing instruction files first and preserve unrelated content byte-for-byte. Add one uniquely delimited block or update only that block. Do not replace an existing file, shadow it with an override, or install the same skill twice. Existing managed policy takes precedence. Show a diff and exact config path. Verify loading with a new harmless session if authorized; otherwise report “configured, loading unverified.” Do not claim a working integration from a file write alone.
 
-## Minimal permanent block
+## Plugin installation and migration
+
+A plugin install makes skills available; it does not choose scope or start recording. For native Codex or Claude Code, use the installed setup skill and keep one configuration authoritative. Do not also install the portable package as a standalone skill in that same harness.
+
+Before enabling the plugin workflow, inspect the existing instruction chain for the `work-to-knowledge` block, older pointers, and an existing standalone copy. Update the existing block instead of appending another. Remove only superseded Work to Knowledge instructions/copies within the authorized setup scope, preserving unrelated content. Do not delete notes or config. If duplicate removal needs permission, stop before enabling a second route. A plugin update must preserve the user's configuration and source permissions.
+
+Use the following plugin block in the active `AGENTS.md` (Codex) or `CLAUDE.md` (Claude Code), replacing `CONFIG_PATH` with the chosen exact path. Resolve the skill through the harness's loaded plugin inventory; do not hard-code a versioned cache path. In Codex the tested identity is `work-to-knowledge:work-to-knowledge`; Claude Code exposes `/work-to-knowledge:work-to-knowledge`. If that skill is unavailable or disabled, silently skip; do not fall back to a stale standalone copy or start setup.
+
+```markdown
+<!-- work-to-knowledge:start -->
+For work covered by CONFIG_PATH, use the installed work-to-knowledge plugin's work-to-knowledge skill. Read that exact config before recording and before every write. Scope applies to the journal itself; exclusions, missing/ambiguous config, uncertain scope, an unavailable plugin, and “no record this session” silently skip all recording. Do not ask per session. After meaningful journal updates evaluate new episodes and recover/check durable checkpoints before debriefing. Keep the user's task primary. Use this single workflow, without a second standalone trigger or lifecycle hook. This instruction does not authorize publication or unrelated reads/writes.
+<!-- work-to-knowledge:end -->
+```
+
+Installation, native onboarding UI, and actual recording are separate verification steps. Never claim all three from successful manifest validation. In a fresh harmless session verify the namespaced main skill is loaded, read the approved config, and dry-run synthetic gate cases without writing notes. On uninstall, remove only the marked block if requested; keep notes/config unless deletion is separately authorized.
+
+## Minimal permanent block for standalone adapters
 
 Fill the two path markers with actual chosen paths during setup (they are intentionally not personal paths in the package):
 
